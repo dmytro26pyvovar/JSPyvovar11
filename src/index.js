@@ -29,7 +29,7 @@ async function fetchImages(query, pageNum) {
         console.error('Error fetching images:', error);
         return null;
     }
-};
+}
 
 function renderImageCards(images) {
     images.forEach((image) => {
@@ -40,13 +40,14 @@ function renderImageCards(images) {
             <div class="info">
                 <p class="info-item"><b>Likes:</b> ${image.likes}</p>
                 <p class="info-item"><b>Views:</b> ${image.views}</p>
-                <p class="info-item"><b>Comments:</b> ${image.comments}</p>
+                <p class "info-item"><b>Comments:</b> ${image.comments}</p>
                 <p class="info-item"><b>Downloads:</b> ${image.downloads}</p>
             </div>
         `;
         gallery.appendChild(card);
     });
-};
+}
+
 
 searchForm.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -57,7 +58,9 @@ searchForm.addEventListener('submit', async (e) => {
     const imagesData = await fetchImages(searchQuery, page);
     if (imagesData && imagesData.hits.length > 0) {
         renderImageCards(imagesData.hits);
-        loadMoreButton.style.display = 'block';
+        if (imagesData.hits.length === 40) {
+            loadMoreButton.style.display = 'block';
+        }
     } else {
         Notiflix.Notify.failure("Sorry, there are no images matching your search query. Please try again.");
     }
@@ -68,6 +71,9 @@ loadMoreButton.addEventListener('click', async () => {
     const imagesData = await fetchImages(searchQuery, page);
     if (imagesData && imagesData.hits.length > 0) {
         renderImageCards(imagesData.hits);
+        if (imagesData.hits.length < 40) {
+            loadMoreButton.style.display = 'none';
+        }
     } else {
         loadMoreButton.style.display = 'none';
         Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
