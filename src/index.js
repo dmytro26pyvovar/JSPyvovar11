@@ -62,7 +62,7 @@ searchForm.addEventListener('submit', async (e) => {
             loadMoreButton.style.display = 'block';
         }
     } else {
-        Notiflix.Notify.failure("Sorry, there are no images matching your search query. Please try again.");
+        Notiflix.Notify.failure("Вибачте. Не знайдено жодного зображення яке б відповідало вашому запиту");
     }
 });
 
@@ -76,6 +76,6 @@ loadMoreButton.addEventListener('click', async () => {
         }
     } else {
         loadMoreButton.style.display = 'none';
-        Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
+        Notiflix.Notify.info("Ви досягли кінця списку результатів.");
     }
 });
